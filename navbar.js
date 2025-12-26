@@ -75,3 +75,67 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. Path Fixer (Wahi purana logic)
+    let path = "./";
+    if (window.location.href.includes("/tools/") || window.location.href.includes("/age-calculator/")) {
+        path = "../../"; 
+    }
+
+    // Header code yahan rahega (Jo humne pichle step me banaya tha)...
+    // ...
+
+    // 2. NEW PROFESSIONAL FOOTER HTML
+    const footerHTML = `
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="${path}index.html" class="logo" style="margin-bottom:15px; display:inline-block;">
+                    ⚡ SuperTools
+                </a>
+                <p>We provide free, fast, and secure online tools for daily use. No installation required.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Discover</h3>
+                <div class="footer-links">
+                    <a href="${path}index.html">Home</a>
+                    <a href="#">Most Popular</a>
+                    <a href="#">New Tools</a>
+                    <a href="#">Blog (Coming Soon)</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Top Tools</h3>
+                <div class="footer-links">
+                    <a href="${path}tools/age-calculator/">Age Calculator</a>
+                    <a href="#">Love Calculator</a>
+                    <a href="#">Image Resizer</a>
+                    <a href="#">Password Gen</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Legal & Help</h3>
+                <div class="footer-links">
+                    <a href="#">About Us</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 SuperTools. Made with ❤️ for the Web.</p>
+        </div>
+    `;
+
+    // Inject Footer
+    const footerEl = document.getElementById("global-footer");
+    if(footerEl) footerEl.innerHTML = footerHTML;
+
+    // ... Baaki Navbar ka Logic (Menu/Dark Mode) same rahega ...
+});

@@ -152,22 +152,8 @@ header {
     background: var(--nav-hover);
 }
 
-/* GitHub/Login Button */
-.github-btn {
-    background: var(--text-main);
-    color: var(--bg-color);
-    padding: 8px 18px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 700;
-    transition: transform 0.2s;
-}
 
-.github-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+
 
 /* --- 3. MOBILE MENU --- */
 .hamburger {
@@ -208,10 +194,58 @@ header {
         display: flex;
     }
 
-    .nav-divider,
-    .github-btn {
+    .nav-divider{
         display: none;
     }
 
     /* Mobile me extra cheezein chupao */
+}
+
+/* --- PROFESSIONAL FOOTER --- */
+footer {
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    padding-top: 60px;
+    margin-top: 80px; /* Content se doori */
+    color: var(--text-light);
+}
+
+.footer-container {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr; /* 4 Columns */
+    gap: 40px;
+    padding-bottom: 50px;
+}
+
+/* Column Styling */
+.footer-col h3 {
+    font-size: 1.1rem; color: var(--text-main); margin-bottom: 20px; font-weight: 700;
+}
+.footer-col p {
+    font-size: 0.95rem; line-height: 1.6; opacity: 0.8; max-width: 300px;
+}
+
+.footer-links { display: flex; flex-direction: column; gap: 12px; }
+.footer-links a {
+    text-decoration: none; color: var(--text-light); font-size: 0.95rem;
+    transition: 0.2s; width: fit-content;
+}
+.footer-links a:hover { color: var(--brand-color); transform: translateX(5px); }
+
+/* Bottom Bar */
+.footer-bottom {
+    border-top: 1px solid var(--border-color);
+    padding: 25px; text-align: center; font-size: 0.9rem;
+    background: var(--bg-color); /* Thoda alag color */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr; /* Mobile par ek ke neeche ek */
+        gap: 30px; text-align: center;
+    }
+    .footer-links a { margin: 0 auto; } /* Center links */
+    .footer-col p { margin: 0 auto; }
 }
