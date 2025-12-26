@@ -23,12 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 <div class="nav-divider"></div>
 
-                <div class="action-buttons">
-                    <button class="theme-btn" id="theme-toggle" aria-label="Toggle Dark Mode">
-                        <span class="theme-icon">🌙</span>
-                    </button>
-                    <a href="#" class="github-btn">GitHub 😺</a>
-                </div>
+                
 
                 <button class="hamburger" id="hamburger-btn">
                     <span></span><span></span><span></span>
