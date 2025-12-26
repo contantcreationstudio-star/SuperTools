@@ -1,67 +1,130 @@
-document.addEventListener("DOMContentLoaded", function() {
-    
-    // 1. Path Fixer
+document.addEventListener("DOMContentLoaded", function () {
+
     let path = "./";
     if (window.location.href.includes("/tools/") || window.location.href.includes("/age-calculator/")) {
-        path = "../../"; 
+        path = "../../";
     }
 
-    // 2. NEW PROFESSIONAL HEADER HTML
     const headerHTML = `
+        <div class="nav-overlay" id="nav-overlay"></div>
         <div class="nav-container">
             <a href="${path}index.html" class="logo">
-                <span class="logo-icon">⚡</span> Super<span class="logo-highlight">Tools</span>
+                <div class="logo-box">⚡</div> 
+                <span class="logo-text">Super<span class="logo-highlight">Tools</span></span>
             </a>
             
             <div class="nav-right">
                 
-                <div class="nav-links" id="nav-menu">
-                    <a href="${path}index.html" class="nav-item active">Home</a>
+                <nav class="nav-links" id="nav-menu">
+                    <div class="mobile-header">
+                        <span class="mobile-logo">⚡ SuperTools</span>
+                        <button class="close-menu" id="close-menu-btn">&times;</button>
+                    </div>
+                    <a href="${path}index.html" class="nav-item">Home</a>
                     <a href="#" class="nav-item">Most Popular</a>
-                    <a href="#" class="nav-item">About</a>
+                    <a href="#" class="nav-item">New & Fresh</a>
+                    <div class="mobile-divider"></div>
+                    <a href="#" class="nav-cta-mobile">All Tools</a>
+                </nav>
+
+                <div class="desktop-actions">
+                    <button class="theme-btn" id="theme-toggle" aria-label="Toggle Dark Mode">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    <a href="#tools-grid" class="nav-cta">Explore Tools</a>
+                    
+                    <button class="hamburger" id="hamburger-btn">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
                 </div>
-
-                <div class="nav-divider"></div>
-
-                
-
-                <button class="hamburger" id="hamburger-btn">
-                    <span></span><span></span><span></span>
-                </button>
             </div>
         </div>
     `;
 
-    const footerHTML = `<p>© 2025 SuperTools. Crafted for You. 🚀</p>`;
+    // Footer Code (Same as before)
+    const footerHTML = `
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="${path}index.html" class="logo" style="margin-bottom:15px; display:inline-block;">⚡ SuperTools</a>
+                <p>We provide free, fast, and secure online tools for daily use.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Discover</h3>
+                <div class="footer-links">
+                    <a href="${path}index.html">Home</a>
+                    <a href="#">Popular Tools</a>
+                    <a href="#">New Additions</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Top Tools</h3>
+                <div class="footer-links">
+                    <a href="${path}tools/age-calculator/">Age Calculator</a>
+                    <a href="#">Love Calculator</a>
+                    <a href="#">Image Resizer</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>© 2025 SuperTools. Made with ❤️.</p></div>
+    `;
 
-    // Inject
     const headerEl = document.getElementById("global-header");
     const footerEl = document.getElementById("global-footer");
-    if(headerEl) headerEl.innerHTML = headerHTML;
-    if(footerEl) footerEl.innerHTML = footerHTML;
+    if (headerEl) headerEl.innerHTML = headerHTML;
+    if (footerEl) footerEl.innerHTML = footerHTML;
 
-    // 3. Logic (Menu + Dark Mode)
+    // Logic
     const menuBtn = document.getElementById("hamburger-btn");
+    const closeBtn = document.getElementById("close-menu-btn");
     const navMenu = document.getElementById("nav-menu");
+    const overlay = document.getElementById("nav-overlay");
     const themeBtn = document.getElementById("theme-toggle");
     const body = document.body;
 
-    // Mobile Menu Toggle
-    if(menuBtn && navMenu) {
-        menuBtn.addEventListener("click", () => {
-            navMenu.classList.toggle("active");
-            menuBtn.classList.toggle("open");
-        });
+    function toggleMenu() {
+        const isActive = navMenu.classList.contains("active");
+
+        if (isActive) {
+            navMenu.classList.remove("active");
+            overlay.classList.remove("active");
+            menuBtn.classList.remove("active");
+            body.style.overflow = "auto";
+        } else {
+            navMenu.classList.add("active");
+            overlay.classList.add("active");
+            menuBtn.classList.add("active");
+            body.style.overflow = "hidden";
+        }
     }
 
-    // Dark Mode Logic
+    if (menuBtn) menuBtn.addEventListener("click", toggleMenu);
+    if (closeBtn) closeBtn.addEventListener("click", toggleMenu);
+    if (overlay) overlay.addEventListener("click", toggleMenu);
+
+    // Active Link Highlight
+    const currentUrl = window.location.href;
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(link => {
+        if (link.href === currentUrl) link.classList.add('active');
+    });
+
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
         body.classList.add("dark-mode");
-        if(themeBtn) themeBtn.innerHTML = "☀️";
+        if (themeBtn) themeBtn.innerHTML = "☀️";
     }
 
-    if(themeBtn) {
+    if (themeBtn) {
         themeBtn.addEventListener("click", () => {
             body.classList.toggle("dark-mode");
             const isDark = body.classList.contains("dark-mode");
@@ -69,68 +132,4 @@ document.addEventListener("DOMContentLoaded", function() {
             themeBtn.innerHTML = isDark ? "☀️" : "🌙";
         });
     }
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    
-    // 1. Path Fixer (Wahi purana logic)
-    let path = "./";
-    if (window.location.href.includes("/tools/") || window.location.href.includes("/age-calculator/")) {
-        path = "../../"; 
-    }
-
-    // Header code yahan rahega (Jo humne pichle step me banaya tha)...
-    // ...
-
-    // 2. NEW PROFESSIONAL FOOTER HTML
-    const footerHTML = `
-        <div class="footer-container">
-            <div class="footer-col">
-                <a href="${path}index.html" class="logo" style="margin-bottom:15px; display:inline-block;">
-                    ⚡ SuperTools
-                </a>
-                <p>We provide free, fast, and secure online tools for daily use. No installation required.</p>
-            </div>
-
-            <div class="footer-col">
-                <h3>Discover</h3>
-                <div class="footer-links">
-                    <a href="${path}index.html">Home</a>
-                    <a href="#">Most Popular</a>
-                    <a href="#">New Tools</a>
-                    <a href="#">Blog (Coming Soon)</a>
-                </div>
-            </div>
-
-            <div class="footer-col">
-                <h3>Top Tools</h3>
-                <div class="footer-links">
-                    <a href="${path}tools/age-calculator/">Age Calculator</a>
-                    <a href="#">Love Calculator</a>
-                    <a href="#">Image Resizer</a>
-                    <a href="#">Password Gen</a>
-                </div>
-            </div>
-
-            <div class="footer-col">
-                <h3>Legal & Help</h3>
-                <div class="footer-links">
-                    <a href="#">About Us</a>
-                    <a href="#">Contact Us</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>© 2025 SuperTools. Made with ❤️ for the Web.</p>
-        </div>
-    `;
-
-    // Inject Footer
-    const footerEl = document.getElementById("global-footer");
-    if(footerEl) footerEl.innerHTML = footerHTML;
-
-    // ... Baaki Navbar ka Logic (Menu/Dark Mode) same rahega ...
 });

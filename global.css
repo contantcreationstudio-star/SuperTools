@@ -40,165 +40,287 @@ body {
     transition: background 0.3s, color 0.3s;
 }
 
-/* --- 2. PROFESSIONAL HEADER --- */
+/* --- 2. PROFESSIONAL HEADER (Redesigned) --- */
 header {
-    background: var(--header-bg);
-    border-bottom: var(--header-border);
-    height: 70px;
+    background: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    height: 80px;
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(12px);
-    /* 🌫️ The Glass Effect */
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     display: flex;
     align-items: center;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+    transition: background 0.3s, border-color 0.3s;
+}
+
+body.dark-mode header {
+    background: rgba(15, 23, 42, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
 .nav-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Logo Styling */
+/* Logo */
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-box {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--brand-color), var(--accent-color));
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    transition: transform 0.3s;
+}
+
+.logo:hover .logo-box {
+    transform: rotate(10deg) scale(1.05);
+}
+
+.logo-text {
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--text-main);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.logo-icon {
-    font-size: 1.8rem;
+    letter-spacing: -0.5px;
 }
 
 .logo-highlight {
-    background: linear-gradient(135deg, var(--brand-color), var(--accent-color));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--brand-color);
 }
 
-/* Right Side Grouping */
+/* Nav Links */
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
 }
 
 .nav-links {
     display: flex;
     gap: 8px;
+    align-items: center;
 }
 
 .nav-item {
     text-decoration: none;
     color: var(--text-light);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.95rem;
     padding: 8px 16px;
-    border-radius: 8px;
-    transition: all 0.2s;
+    border-radius: 50px;
+    transition: all 0.2s ease;
+    position: relative;
 }
 
 .nav-item:hover,
 .nav-item.active {
     color: var(--brand-color);
-    background: var(--nav-hover);
+    background: rgba(79, 70, 229, 0.08);
+    /* More subtle hover */
 }
 
-/* Divider Line */
-.nav-divider {
-    height: 24px;
-    width: 1px;
-    background: var(--text-light);
-    opacity: 0.2;
-}
-
-/* Actions (Buttons) */
-.action-buttons {
+/* Desktop Actions */
+.desktop-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
+}
+
+.nav-cta {
+    background: var(--text-main);
+    color: var(--bg-color);
+    padding: 10px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .nav-cta {
+    background: #fff;
+    color: #000;
 }
 
 .theme-btn {
     background: transparent;
-    border: 1px solid var(--text-light);
-    opacity: 0.5;
-    width: 36px;
-    height: 36px;
+    border: none;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    color: var(--text-light);
     transition: 0.2s;
-    color: var(--text-main);
 }
 
 .theme-btn:hover {
-    opacity: 1;
-    border-color: var(--brand-color);
     background: var(--nav-hover);
+    color: var(--brand-color);
+    transform: rotate(15deg);
 }
 
 
-
-
-/* --- 3. MOBILE MENU --- */
+/* --- MOBILE MENU --- */
 .hamburger {
     display: none;
+    flex-direction: column;
+    gap: 5px;
     background: none;
     border: none;
     cursor: pointer;
+    padding: 5px;
+    z-index: 2001;
+    /* Above overlay */
 }
 
-.hamburger span {
-    display: block;
-    width: 25px;
-    height: 3px;
+.hamburger .bar {
+    width: 24px;
+    height: 2.5px;
     background: var(--text-main);
-    margin: 5px 0;
+    border-radius: 2px;
     transition: 0.3s;
 }
 
-@media (max-width: 768px) {
+/* Overlay */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    z-index: 1001;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-header {
+    display: none;
+}
+
+@media (max-width: 900px) {
     .hamburger {
-        display: block;
-    }
-
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: var(--card-bg);
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    .nav-links.active {
         display: flex;
     }
 
-    .nav-divider{
+    .nav-cta {
         display: none;
+        /* Hide desktop CTA on mobile */
     }
 
-    /* Mobile me extra cheezein chupao */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        /* Hidden via right */
+        width: 280px;
+        height: 100vh;
+        background: var(--card-bg);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1002;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 10px;
+    }
+
+    .mobile-logo {
+        font-weight: 800;
+        font-size: 1.2rem;
+        color: var(--text-main);
+    }
+
+    .close-menu {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: var(--text-light);
+        cursor: pointer;
+    }
+
+    .nav-item {
+        width: 100%;
+        border-radius: 0;
+        padding: 15px 25px;
+        font-size: 1.1rem;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+        background: var(--nav-hover);
+        border-radius: 0;
+    }
+
+    .nav-cta-mobile {
+        display: block;
+        margin: 20px 25px;
+        text-align: center;
+        background: var(--brand-color);
+        padding: 12px;
+        color: white;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        width: calc(100% - 50px);
+    }
+
+    .mobile-divider {
+        height: 1px;
+        background: var(--border-color);
+        width: 100%;
+        margin: 10px 0;
+    }
 }
 
 /* --- PROFESSIONAL FOOTER --- */
@@ -206,46 +328,81 @@ footer {
     background: var(--card-bg);
     border-top: 1px solid var(--border-color);
     padding-top: 60px;
-    margin-top: 80px; /* Content se doori */
+    margin-top: 80px;
+    /* Content se doori */
     color: var(--text-light);
 }
 
 .footer-container {
-    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr; /* 4 Columns */
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    /* 4 Columns */
     gap: 40px;
     padding-bottom: 50px;
 }
 
 /* Column Styling */
 .footer-col h3 {
-    font-size: 1.1rem; color: var(--text-main); margin-bottom: 20px; font-weight: 700;
-}
-.footer-col p {
-    font-size: 0.95rem; line-height: 1.6; opacity: 0.8; max-width: 300px;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-bottom: 20px;
+    font-weight: 700;
 }
 
-.footer-links { display: flex; flex-direction: column; gap: 12px; }
-.footer-links a {
-    text-decoration: none; color: var(--text-light); font-size: 0.95rem;
-    transition: 0.2s; width: fit-content;
+.footer-col p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.8;
+    max-width: 300px;
 }
-.footer-links a:hover { color: var(--brand-color); transform: translateX(5px); }
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    transition: 0.2s;
+    width: fit-content;
+}
+
+.footer-links a:hover {
+    color: var(--brand-color);
+    transform: translateX(5px);
+}
 
 /* Bottom Bar */
 .footer-bottom {
     border-top: 1px solid var(--border-color);
-    padding: 25px; text-align: center; font-size: 0.9rem;
-    background: var(--bg-color); /* Thoda alag color */
+    padding: 25px;
+    text-align: center;
+    font-size: 0.9rem;
+    background: var(--bg-color);
+    /* Thoda alag color */
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .footer-container {
-        grid-template-columns: 1fr; /* Mobile par ek ke neeche ek */
-        gap: 30px; text-align: center;
+        grid-template-columns: 1fr;
+        /* Mobile par ek ke neeche ek */
+        gap: 30px;
+        text-align: center;
     }
-    .footer-links a { margin: 0 auto; } /* Center links */
-    .footer-col p { margin: 0 auto; }
+
+    .footer-links a {
+        margin: 0 auto;
+    }
+
+    /* Center links */
+    .footer-col p {
+        margin: 0 auto;
+    }
 }
