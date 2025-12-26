@@ -1,30 +1,43 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    // 1. Path Fixer (Raasta theek karna)
+    // 1. Path Fixer
     let path = "./";
-    if (window.location.href.includes("/tools/")) {
-        // Agar tool folder ke andar hain, to 2 step peeche jao
+    if (window.location.href.includes("/tools/") || window.location.href.includes("/age-calculator/")) {
         path = "../../"; 
     }
 
-    // 2. Header HTML
+    // 2. NEW PROFESSIONAL HEADER HTML
     const headerHTML = `
         <div class="nav-container">
-            <a href="${path}index.html" class="logo">SuperTools ⚡</a>
-            <div class="nav-actions">
-                <button class="theme-btn" id="theme-toggle">🌙</button>
-                <button class="hamburger" id="hamburger-btn">☰</button>
-            </div>
-            <div class="nav-links" id="nav-menu">
-                <a href="${path}index.html">Home</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
+            <a href="${path}index.html" class="logo">
+                <span class="logo-icon">⚡</span> Super<span class="logo-highlight">Tools</span>
+            </a>
+            
+            <div class="nav-right">
+                
+                <div class="nav-links" id="nav-menu">
+                    <a href="${path}index.html" class="nav-item active">Home</a>
+                    <a href="#" class="nav-item">Most Popular</a>
+                    <a href="#" class="nav-item">About</a>
+                </div>
+
+                <div class="nav-divider"></div>
+
+                <div class="action-buttons">
+                    <button class="theme-btn" id="theme-toggle" aria-label="Toggle Dark Mode">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    <a href="#" class="github-btn">GitHub 😺</a>
+                </div>
+
+                <button class="hamburger" id="hamburger-btn">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
     `;
 
-    // 3. Footer HTML
-    const footerHTML = `<p>© 2025 SuperTools. Free & Secure.</p>`;
+    const footerHTML = `<p>© 2025 SuperTools. Crafted for You. 🚀</p>`;
 
     // Inject
     const headerEl = document.getElementById("global-header");
@@ -32,42 +45,33 @@ document.addEventListener("DOMContentLoaded", function() {
     if(headerEl) headerEl.innerHTML = headerHTML;
     if(footerEl) footerEl.innerHTML = footerHTML;
 
-    // 4. Logic (Menu + Dark Mode)
+    // 3. Logic (Menu + Dark Mode)
     const menuBtn = document.getElementById("hamburger-btn");
     const navMenu = document.getElementById("nav-menu");
     const themeBtn = document.getElementById("theme-toggle");
     const body = document.body;
 
-    if(menuBtn) {
+    // Mobile Menu Toggle
+    if(menuBtn && navMenu) {
         menuBtn.addEventListener("click", () => {
             navMenu.classList.toggle("active");
-            menuBtn.innerHTML = navMenu.classList.contains("active") ? "✕" : "☰";
+            menuBtn.classList.toggle("open");
         });
     }
 
-    // Dark Mode Memory
-    if (localStorage.getItem("theme") === "dark") {
+    // Dark Mode Logic
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
         body.classList.add("dark-mode");
-        themeBtn.innerText = "☀️";
+        if(themeBtn) themeBtn.innerHTML = "☀️";
     }
-    themeBtn.addEventListener("click", () => {
-        body.classList.toggle("dark-mode");
-        const isDark = body.classList.contains("dark-mode");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-        themeBtn.innerText = isDark ? "☀️" : "🌙";
-    });
 
-    // 5. Automated Schema (SEO)
-    const schemaData = {
-        "@context": "https://schema.org",
-        "@type": window.location.href.includes("/tools/") ? "SoftwareApplication" : "WebSite",
-        "name": document.title,
-        "url": window.location.href,
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "Any"
-    };
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(schemaData);
-    document.head.appendChild(script);
+    if(themeBtn) {
+        themeBtn.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            const isDark = body.classList.contains("dark-mode");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+            themeBtn.innerHTML = isDark ? "☀️" : "🌙";
+        });
+    }
 });
