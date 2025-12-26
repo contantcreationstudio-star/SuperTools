@@ -3,107 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperTools - Free Online Tools Collection</title>
-    <meta name="description" content="Access free premium tools like Age Calculator, Love Calculator and more.">
+    <title>SuperTools - Premium Free Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="global.css">
     
     <style>
-        /* --- HOMEPAGE SPECIFIC CSS --- */
-        
-        /* 1. HERO SECTION (Gradient Text + Big Search) */
+        /* --- HERO SECTION --- */
         .hero {
-            text-align: center; padding: 80px 20px 40px;
-            background: radial-gradient(circle at top, #f3f4f6 0%, transparent 70%);
+            text-align: center; padding: 100px 20px 60px;
+            background: var(--hero-bg); /* Variable se background aayega */
+            transition: background 0.3s ease;
         }
         
         .hero h1 {
-            font-size: 3.5rem; font-weight: 800; margin: 0;
-            color: var(--text-main); letter-spacing: -1px; line-height: 1.2;
+            font-size: 3rem; font-weight: 800; margin: 0;
+            color: var(--text-main); letter-spacing: -1px; line-height: 1.1;
         }
+        /* Gradient Text Effect */
         .hero h1 span {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .hero p {
-            font-size: 1.1rem; color: var(--text-light); margin-top: 15px; max-width: 600px; margin-left: auto; margin-right: auto;
+            font-size: 1.2rem; color: var(--text-light); margin-top: 20px; 
+            max-width: 700px; margin-left: auto; margin-right: auto;
         }
 
-        /* 2. ADVANCED SEARCH BAR 🔍 */
+        /* --- SEARCH BAR (Dark Mode Ready) --- */
         .search-container {
-            position: relative; max-width: 600px; margin: 40px auto 20px;
+            position: relative; max-width: 650px; margin: 50px auto 30px;
         }
         .search-box {
-            width: 100%; padding: 20px 25px; padding-left: 60px;
-            font-size: 1.1rem; border: 2px solid transparent; border-radius: 50px;
-            background: var(--card-bg); color: var(--text-main);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08); transition: 0.3s;
-            outline: none; box-sizing: border-box; /* Fix width issue */
+            width: 100%; padding: 22px 30px; padding-left: 65px;
+            font-size: 1.1rem; 
+            border: 2px solid var(--border-color); /* Border for definition */
+            border-radius: 50px;
+            background: var(--search-bg); /* Dark/Light Toggle */
+            color: var(--text-main);
+            box-shadow: var(--card-shadow);
+            transition: 0.3s; box-sizing: border-box; outline: none;
         }
         .search-box:focus {
-            border-color: #6a11cb; box-shadow: 0 20px 50px rgba(106, 17, 203, 0.15); transform: translateY(-2px);
+            border-color: var(--brand-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
         }
         .search-icon {
             position: absolute; left: 25px; top: 50%; transform: translateY(-50%);
-            font-size: 1.4rem; color: #a0aec0;
+            font-size: 1.4rem; color: var(--text-light);
         }
 
-        /* 3. QUICK TAGS (Chips) */
+        /* --- TAGS --- */
         .tags-container {
-            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 50px;
+            display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 60px;
         }
         .tag-chip {
-            background: var(--card-bg); padding: 8px 18px; border-radius: 30px;
-            font-size: 0.9rem; font-weight: 500; color: var(--text-light);
-            cursor: pointer; border: 1px solid var(--border-color); transition: 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            background: var(--card-bg); padding: 10px 20px; border-radius: 30px;
+            font-size: 0.95rem; font-weight: 500; color: var(--text-light);
+            cursor: pointer; border: 1px solid var(--border-color);
+            transition: 0.2s;
         }
         .tag-chip:hover, .tag-chip.active {
-            background: #6a11cb; color: white; border-color: #6a11cb; transform: scale(1.05);
+            background: var(--brand-color); color: white; border-color: var(--brand-color);
         }
 
-        /* 4. TOOLS GRID (Glass Cards) */
+        /* --- GRID CONTAINER (Wider for Desktop) --- */
         .grid-container {
-            max-width: 1200px; margin: 0 auto; padding: 20px;
+            max-width: 1300px; /* Badi Screen */
+            margin: 0 auto; padding: 20px 40px;
         }
         .grid-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;
         }
-        .grid-header h2 { font-size: 1.5rem; color: var(--text-main); margin: 0; }
-        .tool-count { background: #edf2f7; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; color: #4a5568; }
+        .grid-header h2 { font-size: 1.8rem; color: var(--text-main); margin: 0; }
+        .tool-count { 
+            background: var(--bg-color); padding: 8px 15px; border-radius: 20px; 
+            font-size: 0.9rem; font-weight: 700; color: var(--text-light); border: 1px solid var(--border-color);
+        }
 
+        /* --- CARDS (Dark Mode Fix) --- */
         .tools-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Card Width Badhaya */
+            gap: 30px;
         }
 
         .tool-card {
-            background: var(--card-bg); padding: 25px; border-radius: 20px;
-            text-decoration: none; color: inherit; display: flex; flex-direction: column;
-            border: 1px solid var(--border-color); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: var(--card-bg); padding: 30px; border-radius: 24px;
+            text-decoration: none; display: flex; flex-direction: column;
+            border: 1px solid var(--border-color); /* Jaruri hai Dark mode ke liye */
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             position: relative; overflow: hidden;
         }
         .tool-card:hover {
-            transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            border-color: #6a11cb;
+            transform: translateY(-8px); 
+            border-color: var(--brand-color);
         }
-        .card-icon { font-size: 3rem; margin-bottom: 15px; transition: 0.3s; }
-        .tool-card:hover .card-icon { transform: scale(1.1) rotate(5deg); }
-        
-        .card-title { font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin: 0 0 8px 0; }
-        .card-desc { font-size: 0.9rem; color: var(--text-light); line-height: 1.5; margin: 0; }
+
+        .card-icon { font-size: 3.5rem; margin-bottom: 20px; }
+        .card-title { font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin: 0 0 10px 0; }
+        .card-desc { font-size: 1rem; color: var(--text-light); line-height: 1.6; margin: 0; }
         
         .new-badge {
-            position: absolute; top: 15px; right: 15px;
-            background: #e53e3e; color: white; font-size: 0.7rem; font-weight: 700;
-            padding: 4px 10px; border-radius: 10px; text-transform: uppercase;
+            position: absolute; top: 20px; right: 20px;
+            background: #ef4444; color: white; font-size: 0.75rem; font-weight: 700;
+            padding: 5px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        /* --- DESKTOP TWEAKS --- */
+        @media (min-width: 1024px) {
+            .hero h1 { font-size: 4rem; }
+            .grid-container { padding-bottom: 80px; }
         }
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .search-box { padding: 15px 20px; padding-left: 50px; font-size: 1rem; }
-            .grid-container { padding: 15px; }
+            .hero h1 { font-size: 2.5rem; }
+            .search-box { padding-left: 55px; }
+            .grid-container { padding: 20px; }
+            .tools-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -112,26 +130,26 @@
 
     <main>
         <section class="hero">
-            <h1>Super<span id="typing-text">Tools</span> ⚡</h1>
-            <p>Calculators, Converters, and Utilities for your daily life.</p>
+            <h1>Super<span id="typing-text">Tools</span> 🚀</h1>
+            <p>Smart, fast, and free utilities designed for your daily needs.</p>
             
             <div class="search-container">
                 <span class="search-icon">🔍</span>
-                <input type="text" class="search-box" id="search-input" placeholder="Search for tools (e.g. Age, Love)...">
+                <input type="text" class="search-box" id="search-input" placeholder="What are you looking for today?">
             </div>
 
             <div class="tags-container" id="tags-wrapper">
-                <span class="tag-chip active" onclick="filterByTag('All')">All</span>
+                <span class="tag-chip active" onclick="filterByTag('All')">All Tools</span>
                 <span class="tag-chip" onclick="filterByTag('Personal')">Personal</span>
-                <span class="tag-chip" onclick="filterByTag('Math')">Math</span>
-                <span class="tag-chip" onclick="filterByTag('Social')">Social</span>
+                <span class="tag-chip" onclick="filterByTag('Math')">Math & Calc</span>
+                <span class="tag-chip" onclick="filterByTag('Social')">Social Media</span>
             </div>
         </section>
         
         <section class="grid-container">
             <div class="grid-header">
-                <h2>Explore Tools</h2>
-                <span class="tool-count" id="tool-count">0 Tools</span>
+                <h2>Most Popular</h2>
+                <span class="tool-count" id="tool-count">Loading...</span>
             </div>
             <div class="tools-grid" id="tools-grid">
                 </div>
