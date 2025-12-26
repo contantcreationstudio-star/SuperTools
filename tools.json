@@ -7,5 +7,14 @@
     "icon": "📅",
     "category": "Personal",
     "keywords": "birthday, dob finder, years old, date of birth"
+  },
+  {
+    "id": "word-counter",
+    "name": "Word Counter",
+    "desc": "Count words, characters, sentences, and paragraphs in real-time.",
+    "link": "tools/word-counter/",
+    "icon": "📝",
+    "category": "Personal",
+    "keywords": "word count, character count, writing, essay"
   }
 ]

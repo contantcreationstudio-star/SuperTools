@@ -16,18 +16,27 @@ document.addEventListener("DOMContentLoaded", () => {
             isNew: true,
             keywords: "birthday, dob, year"
         },
+        {
+            id: "word-counter",
+            name: "Word Counter",
+            desc: "Count words, characters, sentences, and paragraphs in real-time.",
+            link: "tools/word-counter/",
+            icon: "📝",
+            category: "Personal",
+            isNew: true,
+            keywords: "word count, character count, writing, essay"
+        },
         // Future mein yahan aur tools aayenge...
-        // { id: "love-calc", name: "Love Calculator", ... }
     ];
 
     // --- 2. RENDER FUNCTION (List dikhane ke liye) ---
     function render(list) {
         if (!grid) return;
-        
-        // Counter Update
-        if(countLabel) countLabel.innerText = `${list.length} Tools`;
 
-        if(list.length === 0) {
+        // Counter Update
+        if (countLabel) countLabel.innerText = `${list.length} Tools`;
+
+        if (list.length === 0) {
             grid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--text-light);">
                     <h3>😕 No tools found</h3>
@@ -53,13 +62,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
-            const filtered = tools.filter(t => 
-                t.name.toLowerCase().includes(term) || 
+            const filtered = tools.filter(t =>
+                t.name.toLowerCase().includes(term) ||
                 t.desc.toLowerCase().includes(term) ||
                 t.keywords.includes(term)
             );
             render(filtered);
-            
+
             // Search karte waqt "All" tag active kar do
             updateActiveTag('All');
         });
@@ -69,11 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
     window.filterByTag = (category) => {
         // Search clear karo
         searchInput.value = '';
-        
+
         // Button ko active dikhao
         updateActiveTag(category);
 
-        if(category === 'All') {
+        if (category === 'All') {
             render(tools);
         } else {
             const filtered = tools.filter(t => t.category === category);
@@ -83,8 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateActiveTag(category) {
         const chips = tagsWrapper.getElementsByClassName('tag-chip');
-        for(let chip of chips) {
-            if(chip.innerText === category) {
+        for (let chip of chips) {
+            if (chip.innerText === category) {
                 chip.classList.add('active');
             } else {
                 chip.classList.remove('active');

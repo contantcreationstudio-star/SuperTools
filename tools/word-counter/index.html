@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter & Character Count Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../global.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header id="global-header"></header>
+
+    <main>
+        <div class="word-counter-wrapper">
+            <div class="hero" style="padding: 0 0 40px; text-align: left;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Word <span
+                        style="color: var(--brand-color);">Counter</span></h1>
+                <p style="color: var(--text-light); max-width: 600px; margin: 0;">
+                    Type or paste your text below to see real-time word, character, sentence, and paragraph counts.
+                </p>
+            </div>
+
+            <div class="input-area">
+                <textarea id="text-input" class="text-input"
+                    placeholder="Start typing or paste your text here..."></textarea>
+
+                <div class="controls">
+                    <button id="clear-btn" class="btn btn-secondary">
+                        🗑️ Clear
+                    </button>
+                    <button id="copy-btn" class="btn btn-primary">
+                        📋 Copy Text
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value" id="word-count">0</span>
+                    <span class="stat-label">Words</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="char-count">0</span>
+                    <span class="stat-label">Characters</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="sentence-count">0</span>
+                    <span class="stat-label">Sentences</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="paragraph-count">0</span>
+                    <span class="stat-label">Paragraphs</span>
+                </div>
+            </div>
+
+            <article class="seo-content" style="margin-top: 60px; color: var(--text-light); line-height: 1.6;">
+                <h3>About This Tool</h3>
+                <p>
+                    This utility helps you track the length of your text content. Whether you are writing an essay,
+                    a social media post, or checking the character limit for a message, this tool provides instant
+                    feedback on your writing metrics.
+                </p>
+            </article>
+        </div>
+    </main>
+
+    <footer id="global-footer"></footer>
+
+    <!-- Scripts -->
+    <script src="../../navbar.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
