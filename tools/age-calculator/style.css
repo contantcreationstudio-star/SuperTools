@@ -1,13 +1,106 @@
-.tool-box {
-    background: var(--card-bg); padding: 40px; border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 100%;
+/* ========================
+   FULL SCREEN LAYOUT
+   ======================== */
+.dashboard-wrapper {
+    width: 100%; max-width: 1200px; margin: 0 auto;
+    padding: 20px; box-sizing: border-box;
 }
-.inputs { display: flex; gap: 10px; justify-content: center; margin: 20px 0; }
-.inputs input {
-    width: 70px; height: 70px; text-align: center; font-size: 1.5rem;
-    border: 2px solid var(--border); border-radius: 10px; background: var(--bg-color); color: var(--text-main);
+
+.tool-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+
+/* ========================
+   PANELS
+   ======================== */
+.panel {
+    background: #fff; border-radius: 20px; padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #edf2f7;
 }
-button {
-    background: var(--brand); color: white; border: none; padding: 15px 30px;
-    border-radius: 50px; font-size: 1.1rem; cursor: pointer; width: 100%;
+
+.input-panel { display: flex; flex-direction: column; justify-content: center; }
+.panel-header h1 { margin: 0; font-size: 1.8rem; color: #2d3748; }
+.panel-header p { color: #718096; margin-top: 5px; }
+
+/* Inputs */
+.input-group-styled { display: flex; gap: 10px; margin-top: 30px; }
+.box { flex: 1; }
+.box label { display: block; font-size: 0.8rem; font-weight: 700; color: #a0aec0; margin-bottom: 5px; text-transform: uppercase; }
+.box input {
+    width: 100%; height: 60px; text-align: center; font-size: 1.5rem; font-weight: 700;
+    border: 2px solid #e2e8f0; border-radius: 12px; background: #f8fafc; outline: none; transition: 0.3s;
+    box-sizing: border-box; 
+}
+.box input:focus { border-color: #6a11cb; background: #fff; }
+
+.divider { text-align: center; margin: 20px 0; font-size: 0.8rem; color: #cbd5e0; font-weight: 600; }
+.full-date-input {
+    width: 100%; padding: 15px; font-size: 1rem; border: 2px solid #e2e8f0; border-radius: 12px;
+    background: #fff; cursor: pointer; box-sizing: border-box; font-family: inherit;
+}
+
+.action-btn {
+    width: 100%; padding: 18px; margin-top: 25px;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white; font-size: 1.2rem; font-weight: 700; border: none;
+    border-radius: 12px; cursor: pointer; transition: 0.2s;
+}
+.action-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3); }
+
+/* ========================
+   RIGHT PANEL: ADVANCED RESULTS
+   ======================== */
+.result-panel { display: flex; flex-direction: column; background: #fdfdfd; }
+
+/* 1. Live Clock Box */
+.live-age-box {
+    background: #2d3748; color: white; padding: 25px; border-radius: 15px;
+    text-align: center; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(45, 55, 72, 0.2);
+}
+.label-sm { font-size: 0.9rem; opacity: 0.8; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+.digital-clock {
+    font-family: 'JetBrains Mono', monospace; /* Tech Font */
+    font-size: 1.5rem; font-weight: 700; margin: 10px 0;
+}
+.digital-clock .highlight { color: #63b3ed; }
+.born-day-badge {
+    background: rgba(255,255,255,0.1); display: inline-block; padding: 5px 15px;
+    border-radius: 50px; font-size: 0.9rem; margin-top: 5px;
+}
+
+/* 2. Stats Grid */
+.stats-grid-full { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.stat-box {
+    background: #fff; padding: 15px; border-radius: 12px; border: 1px solid #edf2f7; text-align: center;
+}
+.emoji { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+.val { display: block; font-weight: 800; font-size: 1rem; color: #2d3748; }
+.lbl { font-size: 0.7rem; color: #a0aec0; text-transform: uppercase; font-weight: 600; }
+
+/* 3. Planet Grid */
+.section-title { font-size: 1rem; color: #4a5568; margin-bottom: 15px; border-left: 4px solid #6a11cb; padding-left: 10px; }
+.planet-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.planet-card {
+    padding: 15px; border-radius: 12px; text-align: center; color: white;
+}
+.planet-card span { display: block; font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px; }
+.planet-card b { font-size: 1.2rem; }
+
+.mars { background: linear-gradient(135deg, #ff6b6b, #c92a2a); }
+.jupiter { background: linear-gradient(135deg, #fcc419, #d9480f); }
+.mercury { background: linear-gradient(135deg, #a5d8ff, #339af0); color: #1a202c !important; }
+
+.share-btn {
+    background: #25D366; color: white; border: none; padding: 15px; width: 100%;
+    border-radius: 12px; margin-top: 25px; font-weight: 700; cursor: pointer;
+}
+
+.seo-content { margin-top: 40px; color: #4a5568; line-height: 1.6; }
+
+/* ========================
+   DESKTOP VIEW
+   ======================== */
+@media (min-width: 768px) {
+    .tool-grid { grid-template-columns: 1fr 1.2fr; align-items: start; }
+    .panel { padding: 40px; min-height: 550px; }
+    .box input { height: 80px; font-size: 2rem; }
+    .digital-clock { font-size: 2rem; }
 }

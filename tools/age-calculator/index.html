@@ -3,65 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator - Check Exact Age</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Age Calculator Ultimate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../global.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+
     <header id="global-header"></header>
 
-    <div class="main-wrapper" style="padding: 20px; display:flex; flex-direction:column; align-items:center;">
+    <div class="dashboard-wrapper">
         
-        <div class="tool-box">
-            <h1>Age Calculator</h1>
-            <p style="color:var(--text-light);">Enter your DOB below 👇</p>
+        <div class="tool-grid">
             
-            <div class="inputs">
-                <input type="number" id="day" placeholder="DD">
-                <input type="number" id="month" placeholder="MM">
-                <input type="number" id="year" placeholder="YYYY">
-            </div>
-            <button onclick="calculate()">Calculate Age 🚀</button>
-
-            <div id="result" style="display:none; margin-top:20px;">
-                <h2 id="age-text"></h2>
-                <div class="share-btn">
-                    <button onclick="share()">Share on WhatsApp 📤</button>
+            <div class="panel input-panel">
+                <div class="panel-header">
+                    <h1>🚀 Ultimate Age Calc</h1>
+                    <p>See your age in real-time!</p>
                 </div>
+
+                <div class="input-group-styled">
+                    <div class="box">
+                        <label>Day</label>
+                        <input type="number" id="day" placeholder="DD" oninput="autoTab(this, 2, 'month')">
+                    </div>
+                    <div class="box">
+                        <label>Month</label>
+                        <input type="number" id="month" placeholder="MM" oninput="autoTab(this, 2, 'year')">
+                    </div>
+                    <div class="box">
+                        <label>Year</label>
+                        <input type="number" id="year" placeholder="YYYY" oninput="autoTab(this, 4, 'calc-btn')">
+                    </div>
+                </div>
+
+                <div class="divider"><span>OR SELECT DATE</span></div>
+
+                <div class="calendar-wrapper">
+                    <input type="date" id="native-picker" class="full-date-input" onchange="fillFromPicker()">
+                </div>
+
+                <button id="calc-btn" class="action-btn" onclick="startCalculation()">Calculate Stats ⚡</button>
             </div>
+
+            <div id="result-panel" class="panel result-panel" style="display:none;">
+                
+                <div class="live-age-box">
+                    <div class="label-sm">You have been alive for:</div>
+                    <div class="digital-clock" id="live-counter">
+                        0y 0m 0d <span class="highlight">00h 00m 00s</span>
+                    </div>
+                    <div class="born-day-badge">
+                        Born on a <span id="born-day-name">Monday</span> 👶
+                    </div>
+                </div>
+
+                <div class="stats-grid-full">
+                    <div class="stat-box">
+                        <span class="emoji">🎂</span>
+                        <span class="val" id="next-bday">0 Days</span>
+                        <span class="lbl">Next Birthday</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="emoji">📅</span>
+                        <span class="val" id="total-weeks">0</span>
+                        <span class="lbl">Total Weeks</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="emoji">🍞</span>
+                        <span class="val" id="total-days">0</span>
+                        <span class="lbl">Total Days</span>
+                    </div>
+                </div>
+
+                <div class="planet-section">
+                    <h3 class="section-title">🪐 Your Age on Other Planets</h3>
+                    <div class="planet-grid">
+                        <div class="planet-card mars">
+                            <span>Mars</span>
+                            <b id="age-mars">0</b>
+                        </div>
+                        <div class="planet-card jupiter">
+                            <span>Jupiter</span>
+                            <b id="age-jupiter">0</b>
+                        </div>
+                        <div class="planet-card mercury">
+                            <span>Mercury</span>
+                            <b id="age-mercury">0</b>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="share-btn" onclick="shareResult()">Share Report 📤</button>
+            </div>
+
         </div>
 
-        <article style="max-width:800px; margin-top:50px; line-height:1.8;">
-            <div class="ad-slot">ADVERTISEMENT HERE</div>
-            <h2>About this Tool</h2>
-            <p>This Age Calculator helps you find your exact age in years, months, and days...</p>
-            <h3>How to use?</h3>
-            <ul><li>Enter Date</li><li>Click Calculate</li></ul>
-            <div class="ad-slot">ADVERTISEMENT HERE</div>
+        <article class="seo-content">
+            <div class="ad-slot">ADVERTISEMENT</div>
+            <h2>Live Age Tracking</h2>
+            <p>This is not just a calculator; it's a real-time age tracker. Watch your age increase by the second and discover how old you would be if you lived on Mars or Jupiter.</p>
+            <div class="ad-slot">ADVERTISEMENT</div>
         </article>
 
     </div>
 
     <footer id="global-footer"></footer>
     <script src="../../navbar.js"></script>
+    
     <script>
-        function calculate() {
+        let liveInterval;
+
+        function autoTab(field, max, nextId) {
+            if(field.value.length >= max) document.getElementById(nextId).focus();
+        }
+
+        function fillFromPicker() {
+            const val = document.getElementById('native-picker').value;
+            if(val) {
+                const d = new Date(val);
+                document.getElementById('day').value = d.getDate();
+                document.getElementById('month').value = d.getMonth() + 1;
+                document.getElementById('year').value = d.getFullYear();
+            }
+        }
+
+        function startCalculation() {
             const d = document.getElementById('day').value;
             const m = document.getElementById('month').value;
             const y = document.getElementById('year').value;
-            if(!d || !m || !y) return alert("Fill all fields");
+            
+            if(!d || !m || !y) return alert("Please enter valid date!");
             
             const dob = new Date(y, m-1, d);
             const now = new Date();
-            const age = now.getFullYear() - dob.getFullYear();
             
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('age-text').innerText = `You are ${age} years old!`;
+            // Basic Validation
+            if(dob > now) return alert("You are not born yet! 😅");
+
+            // Show Panel
+            document.getElementById('result-panel').style.display = 'flex';
+            
+            // 1. Trigger Confetti (Celebration) 🎉
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+
+            // 2. Start Live Clock
+            if(liveInterval) clearInterval(liveInterval);
+            updateLiveClock(dob);
+            liveInterval = setInterval(() => updateLiveClock(dob), 1000);
+
+            // 3. Static Stats
+            const nextBday = new Date(now.getFullYear(), dob.getMonth(), dob.getDate());
+            if(now > nextBday) nextBday.setFullYear(now.getFullYear() + 1);
+            const daysToBday = Math.ceil((nextBday - now) / (1000 * 60 * 60 * 24));
+            
+            const totalDiff = now - dob;
+            const ageInYears = totalDiff / (1000 * 60 * 60 * 24 * 365.25);
+
+            document.getElementById('next-bday').innerText = daysToBday + " Days";
+            document.getElementById('total-weeks').innerText = Math.floor(totalDiff/(1000*60*60*24*7)).toLocaleString();
+            document.getElementById('total-days').innerText = Math.floor(totalDiff/(1000*60*60*24)).toLocaleString();
+            
+            // Born Day Name
+            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            document.getElementById('born-day-name').innerText = daysOfWeek[dob.getDay()];
+
+            // 4. Planetary Ages
+            document.getElementById('age-mercury').innerText = (ageInYears / 0.24).toFixed(1) + " y";
+            document.getElementById('age-mars').innerText = (ageInYears / 1.88).toFixed(1) + " y";
+            document.getElementById('age-jupiter').innerText = (ageInYears / 11.86).toFixed(1) + " y";
         }
-        function share() {
-            const txt = document.getElementById('age-text').innerText;
-            window.open(`https://wa.me/?text=${txt} - Check yours at ${window.location.href}`);
+
+        function updateLiveClock(dob) {
+            const now = new Date();
+            let diff = now - dob;
+
+            // Math for exact time breakdown
+            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            diff -= years * (1000 * 60 * 60 * 24 * 365.25);
+            
+            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
+            diff -= months * (1000 * 60 * 60 * 24 * 30.44);
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            diff -= days * (1000 * 60 * 60 * 24);
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            diff -= hours * (1000 * 60 * 60);
+
+            const minutes = Math.floor(diff / (1000 * 60));
+            diff -= minutes * (1000 * 60);
+
+            const seconds = Math.floor(diff / 1000);
+
+            // Update UI
+            document.getElementById('live-counter').innerHTML = 
+                `${years}y ${months}m ${days}d <span class="highlight">${hours}h ${minutes}m ${seconds}s</span>`;
+        }
+
+        function shareResult() {
+             window.open(`https://wa.me/?text=I checked my exact live age on SuperTools! It's amazing. Check yours: ${window.location.href}`);
         }
     </script>
 </body>
